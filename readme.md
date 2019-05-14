@@ -3,6 +3,8 @@ This is a mobile application (Android or iOS - or both) that allows users to stu
 
 The app allows users to create different categories of flashcards called "decks", add flashcards to those decks, then take quizzes on those decks.
 
+This app has been tested on an Android emulator.
+
 ## Building
 `yarn install`
 
