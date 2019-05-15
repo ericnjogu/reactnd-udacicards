@@ -12,9 +12,13 @@ export default class Deck extends React.Component {
 		}
 	}
 
-	startQuiz = () => {
+	showQuiz = () => {
 		// TODO navigate to Quiz page
 		//this.props.navigation.navigate('Quiz', {'deck': this.props.navigation.params.deck})
+	}
+
+	showAddCard = () => {
+		this.props.navigation.navigate('addCard', {'deck': this.props.navigation.state.params.deck})
 	}
 
 	render() {
@@ -25,7 +29,7 @@ export default class Deck extends React.Component {
 					<Text style={styles.iconText}>Add Card</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity onPress={this.showAddCard} style={styles.buttonContainer}>
+				<TouchableOpacity onPress={this.showQuiz} style={styles.buttonContainer}>
 					<SimpleLineIcons name='question' size={100} style={styles.icon}/>
 					<Text style={styles.iconText}>Start Quiz</Text>
 				</TouchableOpacity>

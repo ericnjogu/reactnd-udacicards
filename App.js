@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Decks from './components/Decks'
 import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
+import AddCard from './components/AddCard'
 import {createStackNavigator, createAppContainer} from 'react-navigation'
 
 const StackNav = createAppContainer(createStackNavigator ({
@@ -14,6 +15,9 @@ const StackNav = createAppContainer(createStackNavigator ({
   },
   deck: {
     screen:Deck
+  },
+  addCard: {
+    screen:AddCard
   }
 }))
 
