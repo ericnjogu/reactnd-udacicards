@@ -15,8 +15,8 @@ export default class Decks extends React.Component {
 		return testDecks
 	}
 
-	showDeck = (deckId) => {
-		// TODO navigate to deck component
+	showDeck = (deck) => {
+		this.props.navigation.navigate('deck', {'deck': deck})
 	}
 
 	addDeck = () => {

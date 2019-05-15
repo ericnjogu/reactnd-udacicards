@@ -13,8 +13,8 @@ export default class AddDeck extends React.Component {
 
 	addDeck = () => {
 		// TODO add to storage
-		// TODO navigate to Deck page
-		//this.props.navigation.navigate('deck', {deckId: this.state.title})
+		const {title} = this.state
+		this.props.navigation.navigate('deck', {'deck': {'title':title, questions:[]}})
 	}
 
 	render() {
