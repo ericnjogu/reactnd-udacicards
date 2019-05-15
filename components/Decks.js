@@ -32,7 +32,7 @@ export default class Decks extends React.Component {
 					renderItem={
 						({item}) => 
 							<TouchableOpacity onPress={() => this.showDeck(item)}>
-								<Text style={styles.deck}>{`${item.title} - ${Object.keys(item.questions).length} card(s)`}</Text>
+								<Text style={styles.deck}>{`${item.title} - ${item.questions.length} card(s)`}</Text>
 							</TouchableOpacity>
 					}
 					keyExtractor={(item, index) => item.title}
