@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
 import {AntDesign} from '@expo/vector-icons'
 import {gray} from '../utils/colors'
+import AddDeck from './AddDeck'
 
 
 export default class Decks extends React.Component {
@@ -16,6 +17,10 @@ export default class Decks extends React.Component {
 
 	showDeck = (deckId) => {
 		// TODO navigate to deck component
+	}
+
+	addDeck = () => {
+		this.props.navigation.navigate('addDeck')
 	}
 
 	render() {
