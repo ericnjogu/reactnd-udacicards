@@ -5,7 +5,7 @@ import {blue} from '../utils/colors'
 
 export default class AddDeck extends React.Component {
 	static navigationOptions = {
-		title: 'Add Deck'
+		title: ''
 	}
 	state = {
 		title:'Deck title'
@@ -24,6 +24,7 @@ export default class AddDeck extends React.Component {
 					onChangeText={(title) => this.setState({title})} 
 					value = {this.state.title}
 					style={styles.text}
+					placeholder='Give your deck a name'
 				/>
 				<TouchableOpacity onPress={this.addDeck}>
 					<Text style={styles.button}>Add Deck</Text>
