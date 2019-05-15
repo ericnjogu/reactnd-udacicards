@@ -5,6 +5,10 @@ import {gray} from '../utils/colors'
 
 
 export default class Decks extends React.Component {
+	static navigationOptions = {
+		title: 'Decks'
+	}
+
 	getDeckList = () => {
 		// TODO replace with async storage call
 		return testDecks
@@ -18,7 +22,6 @@ export default class Decks extends React.Component {
 		const decks = this.getDeckList()
 		return (
 			<View>
-				<Text style={{marginTop:20, fontSize:30}}>Decks</Text>
 				<FlatList 
 					data={Object.keys(decks).map(deckId => decks[deckId])}
 					renderItem={
