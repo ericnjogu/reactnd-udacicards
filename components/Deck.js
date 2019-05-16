@@ -13,8 +13,7 @@ export default class Deck extends React.Component {
 	}
 
 	showQuiz = () => {
-		// TODO navigate to Quiz page
-		//this.props.navigation.navigate('Quiz', {'deck': this.props.navigation.params.deck})
+		this.props.navigation.navigate('quiz', {'deck': this.props.navigation.state.params.deck})
 	}
 
 	showAddCard = () => {
