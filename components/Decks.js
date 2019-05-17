@@ -42,7 +42,7 @@ export default class Decks extends React.Component {
 		const {decks} = this.state
 		debugger
 		return (
-			<View>
+			<View style={{flex:1}}>
 				{
 					decks === null || decks === undefined
 					?
@@ -60,7 +60,7 @@ export default class Decks extends React.Component {
 					/>
 					
 				}
-				<TouchableOpacity onPress={this.addDeck} style={{marginTop:50, alignItems:'center'}} >
+				<TouchableOpacity onPress={this.addDeck} style={{marginTop:10, alignItems:'center'}} >
 					<AntDesign name='plussquareo' size={60}/>
 					<Text style={{fontSize:20}}>Add Deck</Text>
 				</TouchableOpacity>
@@ -73,7 +73,6 @@ export default class Decks extends React.Component {
 const styles = StyleSheet.create({
 	deck:{
 		fontSize:20,
-		flex:1,
 		backgroundColor:gray,
 		margin:10,
 		padding:15
