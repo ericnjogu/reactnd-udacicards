@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native'
 import {AntDesign} from '@expo/vector-icons'
 import {gray} from '../utils/colors'
 import AddDeck from './AddDeck'
+import {getDecks} from '../utils/api'
 
 
 export default class Decks extends React.Component {
@@ -10,9 +11,14 @@ export default class Decks extends React.Component {
 		title: 'Decks'
 	}
 
-	getDeckList = () => {
-		// TODO replace with async storage call
-		return testDecks
+	state = {
+		decks:null
+	}
+
+	async componentDidMount() {
+		this.setState({
+			decks:getDecks()
+		})
 	}
 
 	showDeck = (deck) => {
@@ -24,19 +30,27 @@ export default class Decks extends React.Component {
 	}
 
 	render() {
-		const decks = this.getDeckList()
+		const decks = this.state.decks
+		debugger
 		return (
 			<View>
-				<FlatList 
-					data={Object.keys(decks).map(deckId => decks[deckId])}
-					renderItem={
-						({item}) => 
-							<TouchableOpacity onPress={() => this.showDeck(item)}>
-								<Text style={styles.deck}>{`${item.title} - ${item.questions.length} card(s)`}</Text>
-							</TouchableOpacity>
-					}
-					keyExtractor={(item, index) => item.title}
-				/>
+				{
+					decks === null || decks === undefined
+					?
+					<Text style={styles.noDecks}>No decks added yet</Text>
+					:
+					<FlatList 
+						data={Object.keys(decks).map(deckId => decks[deckId])}
+						renderItem={
+							({item}) => 
+								<TouchableOpacity onPress={() => this.showDeck(item)}>
+									<Text style={styles.deck}>{`${item.title} - ${item.questions.length} card(s)`}</Text>
+								</TouchableOpacity>
+						}
+						keyExtractor={(item, index) => item.title}
+					/>
+					
+				}
 				<TouchableOpacity onPress={this.addDeck} style={{marginTop:50, alignItems:'center'}} >
 					<AntDesign name='plussquareo' size={60}/>
 					<Text style={{fontSize:20}}>Add Deck</Text>
@@ -53,30 +67,6 @@ const styles = StyleSheet.create({
 		backgroundColor:gray,
 		margin:10,
 		padding:15
-	}
+	},
+	noDecks: {fontSize:20, alignSelf:'center'},
 })
-
-const testDecks = {
-  React: {
-    title: 'React',
-    questions: [
-      {
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces'
-      },
-      {
-        question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event'
-      }
-    ]
-  },
-  JavaScript: {
-    title: 'JavaScript',
-    questions: [
-      {
-        question: 'What is a closure?',
-        answer: 'The combination of a function and the lexical environment within which that function was declared.'
-      }
-    ]
-  }
-}
