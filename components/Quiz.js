@@ -19,14 +19,19 @@ export default class quiz extends React.Component {
 	}
 
 	markCorrect = (increment) => {
-		const cardIndex = this.state.cardIndex + 1
-		debugger
+		let cardIndex = this.state.cardIndex + 1
+		let score = this.state.score + increment
+		const deck = this.props.navigation.state.params.deck
+		if (cardIndex === deck.questions.length) {
+			this.props.navigation.navigate('quizResults', {deck, score})
+			cardIndex = 0
+			score = 0
+		}
 		this.setState(state => ({
 			cardIndex,
-			score: state.score + increment,
+			score,
 			answerVisible:false
 		}))
-		// if new cardIndex is equal to count, navigate to results
 	}
 
 	markIncorrect = () => {

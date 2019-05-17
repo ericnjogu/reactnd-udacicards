@@ -5,6 +5,7 @@ import AddDeck from './components/AddDeck'
 import Deck from './components/Deck'
 import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
+import QuizResults from './components/QuizResults'
 import {createStackNavigator, createAppContainer} from 'react-navigation'
 
 const StackNav = createAppContainer(createStackNavigator ({
@@ -22,6 +23,9 @@ const StackNav = createAppContainer(createStackNavigator ({
   },
   quiz: {
     screen:Quiz
+  },
+  quizResults: {
+    screen:QuizResults
   }
 }))
 
@@ -30,6 +34,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <StackNav/>
+        {/*<QuizResults/>*/}
       </View>
     );
   }
