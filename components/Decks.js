@@ -4,6 +4,7 @@ import {AntDesign} from '@expo/vector-icons'
 import {gray} from '../utils/colors'
 import AddDeck from './AddDeck'
 import {getDecks} from '../utils/api'
+import {NavigationEvents} from 'react-navigation'
 
 
 export default class Decks extends React.Component {
@@ -15,9 +16,11 @@ export default class Decks extends React.Component {
 		decks:null
 	}
 
+	// CREDIT: https://forums.expo.io/t/how-to-parse-data-from-asyncstorage-to-text/3417/8
 	async componentDidMount() {
+		const decks = await getDecks()
 		this.setState({
-			decks:getDecks()
+			'decks':JSON.parse(decks)
 		})
 	}
 
@@ -29,8 +32,14 @@ export default class Decks extends React.Component {
 		this.props.navigation.navigate('addDeck')
 	}
 
+	refreshDecks = () => {
+		this.componentDidMount()
+			.then(results => console.log(results))
+			.catch((error) => {console.log(error)})
+	}
+
 	render() {
-		const decks = this.state.decks
+		const {decks} = this.state
 		debugger
 		return (
 			<View>
@@ -55,6 +64,7 @@ export default class Decks extends React.Component {
 					<AntDesign name='plussquareo' size={60}/>
 					<Text style={{fontSize:20}}>Add Deck</Text>
 				</TouchableOpacity>
+				<NavigationEvents onWillFocus={this.refreshDecks}/>
 			</View>
 		)
 	}
