@@ -7,6 +7,7 @@ import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
 import QuizResults from './components/QuizResults'
 import {createStackNavigator, createAppContainer} from 'react-navigation'
+import {setLocalNotification} from './utils/notifications'
 
 const StackNav = createAppContainer(createStackNavigator ({
   decks: {
@@ -30,6 +31,10 @@ const StackNav = createAppContainer(createStackNavigator ({
 }))
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <View style={styles.container}>
