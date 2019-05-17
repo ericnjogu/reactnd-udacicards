@@ -21,17 +21,21 @@ export default class Deck extends React.Component {
 	}
 
 	render() {
+		const {questions} = this.props.navigation.state.params.deck
 		return (
 			<View style={styles.container}>
 				<TouchableOpacity onPress={this.showAddCard} style={styles.buttonContainer}>
 					<Entypo name='add-to-list' size={100} style={styles.icon}/>
 					<Text style={styles.iconText}>Add Card</Text>
 				</TouchableOpacity>
-
-				<TouchableOpacity onPress={this.showQuiz} style={styles.buttonContainer}>
-					<SimpleLineIcons name='question' size={100} style={styles.icon}/>
-					<Text style={styles.iconText}>Start Quiz</Text>
-				</TouchableOpacity>
+				{
+					questions.length > 0 
+					&&
+					<TouchableOpacity onPress={this.showQuiz} style={styles.buttonContainer}>
+						<SimpleLineIcons name='question' size={100} style={styles.icon}/>
+						<Text style={styles.iconText}>Start Quiz</Text>
+					</TouchableOpacity>
+				}
 			</View>
 		)
 	}
