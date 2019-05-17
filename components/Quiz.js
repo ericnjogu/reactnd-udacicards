@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,TextInput} from 'react-native';
 import {white, purple} from '../utils/colors'
 import {Feather} from '@expo/vector-icons'
+import {clearLocalNotification} from '../utils/notifications'
 
 
 export default class quiz extends React.Component {
@@ -23,9 +24,13 @@ export default class quiz extends React.Component {
 		let score = this.state.score + increment
 		const deck = this.props.navigation.state.params.deck
 		if (cardIndex === deck.questions.length) {
+			// navigate to results screen
 			this.props.navigation.navigate('quizResults', {deck, score})
+			// reset counters
 			cardIndex = 0
 			score = 0
+			// clear local notification
+			clearLocalNotification()
 		}
 		this.setState(state => ({
 			cardIndex,
