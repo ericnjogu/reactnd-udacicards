@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Animated} from 'react-native';
 import {AntDesign} from '@expo/vector-icons'
 import {gray} from '../utils/colors'
 import AddDeck from './AddDeck'
@@ -13,18 +13,26 @@ export default class Decks extends React.Component {
 	}
 
 	state = {
-		decks:null
+		decks:null,
+		bounceValue: new Animated.Value(1)
 	}
 
 	// CREDIT: https://forums.expo.io/t/how-to-parse-data-from-asyncstorage-to-text/3417/8
 	async componentDidMount() {
 		const decks = await getDecks()
-		this.setState({
-			'decks':JSON.parse(decks)
-		})
+		this.setState(state => ({
+				...state,
+				'decks':JSON.parse(decks)
+			})
+		)
 	}
 
 	showDeck = (deck) => {
+		const {bounceValue} = this.state
+		Animated.sequence([
+					Animated.timing(bounceValue, {duration:200, toValue:1.04}),
+					Animated.spring(bounceValue, {toValue:1, friction:4}),
+				]).start()
 		this.props.navigation.navigate('deck', {'deck': deck})
 	}
 
@@ -39,7 +47,7 @@ export default class Decks extends React.Component {
 	}
 
 	render() {
-		const {decks} = this.state
+		const {decks, bounceValue} = this.state
 		debugger
 		return (
 			<View style={{flex:1}}>
@@ -53,7 +61,9 @@ export default class Decks extends React.Component {
 						renderItem={
 							({item}) => 
 								<TouchableOpacity onPress={() => this.showDeck(item)}>
-									<Text style={styles.deck}>{`${item.title} - ${item.questions.length} card(s)`}</Text>
+									<Animated.Text style={[styles.deck, {transform:[{scale:bounceValue}]}]}>
+										{`${item.title} - ${item.questions.length} card(s)`}
+									</Animated.Text>
 								</TouchableOpacity>
 						}
 						keyExtractor={(item, index) => item.title}
