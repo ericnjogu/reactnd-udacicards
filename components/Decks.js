@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
 		fontSize:20,
 		flex:1,
 		backgroundColor:gray,
-		margin:10
+		margin:10,
+		padding:15
 	}
 })
 
