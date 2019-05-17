@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity,TextInput} from 'react-native';
 import {blue} from '../utils/colors'
+import {updateDeck} from '../utils/api'
 
 
 export default class AddCard extends React.Component {
@@ -15,7 +16,7 @@ export default class AddCard extends React.Component {
 	addCard = () => {
 		const {deck} = this.props.navigation.state.params
 		updatedDeck = {...deck, questions:deck.questions.concat(this.state)}
-		// TODO add to storage
+		updateDeck(updatedDeck)
 		this.props.navigation.navigate('deck', {'deck': updatedDeck})
 	}
 
