@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, FlatList, Animated} from 'react-native';
 import {AntDesign} from '@expo/vector-icons'
-import {gray} from '../utils/colors'
+import {gray, white} from '../utils/colors'
 import AddDeck from './AddDeck'
 import {getDecks} from '../utils/api'
 import {NavigationEvents} from 'react-navigation'
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
 		fontSize:20,
 		backgroundColor:gray,
 		margin:10,
-		padding:15
+		padding:15,
+		color:white
 	},
 	noDecks: {fontSize:20, alignSelf:'center'},
 })
