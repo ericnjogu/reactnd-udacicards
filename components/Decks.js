@@ -6,6 +6,7 @@ import AddDeck from './AddDeck'
 import {getDecks} from '../utils/api'
 import {NavigationEvents} from 'react-navigation'
 
+const ANIMATION_DURATION = 2000
 
 export default class Decks extends React.Component {
 	static navigationOptions = {
@@ -14,7 +15,7 @@ export default class Decks extends React.Component {
 
 	state = {
 		decks:null,
-		bounceValue: new Animated.Value(1)
+		bounceValue: new Animated.Value(0)
 	}
 
 	// CREDIT: https://forums.expo.io/t/how-to-parse-data-from-asyncstorage-to-text/3417/8
@@ -29,11 +30,16 @@ export default class Decks extends React.Component {
 
 	showDeck = (deck) => {
 		const {bounceValue} = this.state
-		Animated.sequence([
-					Animated.timing(bounceValue, {duration:200, toValue:1.04}),
-					Animated.spring(bounceValue, {toValue:1, friction:4}),
-				]).start()
-		this.props.navigation.navigate('deck', {'deck': deck})
+		Animated.timing(bounceValue, {
+					toValue:1,
+					duration:ANIMATION_DURATION,
+				}).start(() => {
+					this.setState(state => ({
+						...state,
+						bounceValue: new Animated.Value(0)
+					}))
+					this.props.navigation.navigate('deck', {'deck': deck})
+				})
 	}
 
 	addDeck = () => {
@@ -61,7 +67,18 @@ export default class Decks extends React.Component {
 						renderItem={
 							({item}) => 
 								<TouchableOpacity onPress={() => this.showDeck(item)}>
-									<Animated.Text style={[styles.deck, {transform:[{scale:bounceValue}]}]}>
+									<Animated.Text style={[styles.deck, {
+										transform: [
+											{scale: bounceValue},
+											{
+												rotate: bounceValue.interpolate({
+													inputRange:[0,1],
+													outputRange:['35deg', '0deg'],
+													extrapolate:'clamp',
+												})
+											}
+										]
+									}]}>
 										{`${item.title} - ${item.questions.length} card(s)`}
 									</Animated.Text>
 								</TouchableOpacity>
@@ -86,7 +103,7 @@ const styles = StyleSheet.create({
 		backgroundColor:gray,
 		margin:10,
 		padding:15,
-		color:white
+		color:white,
 	},
 	noDecks: {fontSize:20, alignSelf:'center'},
 })
